@@ -1,16 +1,102 @@
-# React + Vite
+# ポケモン検索アプリ (Pokémon Search App)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## アプリ概要
 
-Currently, two official plugins are available:
+PokeAPIを利用した、ポケモンを検索できるWebアプリです。
+検索したポケモンの画像・名前・タイプを確認できるほか、お気に入り登録や検索履歴の確認ができます。
+React学習の課題として作成しました。
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 主な機能
 
-## React Compiler
+- ポケモン検索機能
+  - ポケモン名（英語名）または図鑑番号で検索できます
+  - 検索結果として、画像・名前・タイプが表示されます
+- お気に入り機能
+  - 検索結果からお気に入りに登録・解除できます
+  - お気に入りは一覧で確認できます
+- 検索履歴機能
+  - 検索に成功したポケモンが履歴として表示されます
+  - 新しく検索したものが上に表示されます
+  - 同じポケモンが重複して登録されることはありません
+  - 履歴は最大10件まで保持されます
+- Loading表示
+  - API通信中は「読み込み中...」と表示されます
+  - 通信中は検索ボタンが押せない状態（disabled）になります
+- Error表示
+  - ポケモンが見つからない場合にエラーメッセージが表示されます
+  - 通信に失敗した場合にエラーメッセージが表示されます
+  - 検索欄が空のまま検索した場合にエラーメッセージが表示されます
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 使用技術
 
-## Expanding the ESLint configuration
+- React
+- JavaScript
+- Vite
+- CSS
+- PokeAPI
+- fetch
+- useState
+- useEffect
+- localStorage
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 操作方法
+
+1. 検索欄に、ポケモンの英語名（例：`pikachu`）または図鑑番号（例：`25`）を入力します。
+2. 「検索」ボタンを押すと、PokeAPIから情報を取得し、画像・名前・タイプが表示されます。
+3. 検索結果の「♡ お気に入り」ボタンを押すと、お気に入りに登録されます。もう一度押すと解除されます。
+4. 検索したポケモンは自動的に【検索履歴】に追加されます。
+5. お気に入りに登録したポケモンは【お気に入り】一覧に表示されます。
+
+## エラー・Loading処理
+
+- 検索中（API通信中）は「読み込み中...」と表示され、検索ボタンは押せない状態になります。
+- 存在しないポケモン名や図鑑番号を検索した場合は、「ポケモンが見つかりませんでした」と表示されます。
+- 通信自体に失敗した場合は、「検索中にエラーが発生しました。もう一度お試しください。」と表示されます。
+- 検索欄が空のまま検索した場合は、「ポケモン名を入力してください。」と表示されます。
+- エラーが表示されている間は、それ以前の検索結果は表示されません。
+
+## データ保存について（localStorage）
+
+- お気に入り登録した内容は、ブラウザのlocalStorageに保存されます。
+- 検索履歴も同様に、ブラウザのlocalStorageに保存されます。
+- そのため、ページをリロードしたり、ブラウザを閉じて再度開いたりしても、お気に入りと検索履歴はそのまま保持されます。
+
+## プロジェクト構成
+
+src/
+├─ main.jsx // アプリの起点となるファイル
+├─ App.jsx // 画面全体の状態管理と組み立てを行うファイル
+├─ App.css // アプリ全体の見た目に関するスタイル
+├─ index.css // 全体の基本スタイル
+├─ components/
+│ ├─ SearchForm.jsx // 検索欄・検索ボタンの部品
+│ ├─ PokemonCard.jsx // 検索結果（画像・名前・タイプ・お気に入りボタン）の部品
+│ ├─ FavoriteList.jsx // お気に入り一覧の部品
+│ └─ SearchHistory.jsx // 検索履歴一覧の部品
+└─ utils/
+└─ pokemonTypeNames.js // ポケモンのタイプ名を日本語に変換するための対応表
+
+## 起動方法
+
+1. このリポジトリをクローン、またはダウンロードします。
+2. プロジェクトのフォルダに移動します。
+
+cd pokemon-search-app
+
+3. 必要なパッケージをインストールします。
+
+npm install
+
+4. 開発サーバーを起動します。
+
+npm run dev
+
+（Windows環境で `npm run dev` が実行できない場合は、`npm.cmd run dev` を試してください。）
+
+5. ターミナルに表示されたURL（例：`http://localhost:5173/`）にブラウザでアクセスすると、アプリが表示されます。
+
+## 注意事項
+
+- ポケモンの検索は英語名または図鑑番号のみ対応しており、日本語名での検索には対応していません（PokeAPIの仕様によるものです）。
+- スマートフォンなどの画面幅への本格的な対応（レスポンシブデザイン）は行っていません。
+- 本アプリは学習・課題提出を目的として作成したものです。
