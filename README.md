@@ -63,18 +63,20 @@ React学習の課題として作成しました。
 
 ## プロジェクト構成
 
+```text
 src/
 ├─ main.jsx // アプリの起点となるファイル
 ├─ App.jsx // 画面全体の状態管理と組み立てを行うファイル
 ├─ App.css // アプリ全体の見た目に関するスタイル
 ├─ index.css // 全体の基本スタイル
 ├─ components/
-│ ├─ SearchForm.jsx // 検索欄・検索ボタンの部品
-│ ├─ PokemonCard.jsx // 検索結果（画像・名前・タイプ・お気に入りボタン）の部品
-│ ├─ FavoriteList.jsx // お気に入り一覧の部品
-│ └─ SearchHistory.jsx // 検索履歴一覧の部品
+│  ├─ SearchForm.jsx // 検索欄・検索ボタンの部品
+│  ├─ PokemonCard.jsx // 検索結果（画像・名前・タイプ・お気に入りボタン）の部品
+│  ├─ FavoriteList.jsx // お気に入り一覧の部品
+│  └─ SearchHistory.jsx // 検索履歴一覧の部品
 └─ utils/
-└─ pokemonTypeNames.js // ポケモンのタイプ名を日本語に変換するための対応表
+   └─ pokemonTypeNames.js // ポケモンのタイプ名を日本語に変換するための対応表
+```
 
 ## 起動方法
 
